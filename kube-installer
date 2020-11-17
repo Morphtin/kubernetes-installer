@@ -9,7 +9,7 @@
 
 VERSION="1"
 
-kube_pod_subnet="10.244.0.0/16" #使用flannel网络.  Calico:192.168.0.0/16
+kube_pod_subnet="10.244.0.0/16" #使用flannel网络.  Calico:192.168.0.0/16 #https://docs.projectcalico.org/getting-started/kubernetes/quickstart
 kube_version="1.17.4" #要安装的集群版本（kubectl kubeadm kubelet）
 kube_image_server="registry.cn-hangzhou.aliyuncs.com/google_containers"
 
@@ -140,7 +140,8 @@ function create-k8s()
   do
     kubectl apply -f $line
   done  < /etc/kubernetes/kubeenv.list
-
+  
+  kubectl taint nodes --all node-role.kubernetes.io/master-
 }
 
 ###########################################################
